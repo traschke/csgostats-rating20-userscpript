@@ -1,9 +1,12 @@
 // ==UserScript==
 // @name         csgostats.gg Rating 2.0
-// @namespace    http://tampermonkey.net/
-// @version      1.0
 // @description  Add HLTV's Rating 2.0 to csgostats.gg match page scoreboard
-// @author       bim
+// @version      1.0
+// @author       traschke
+// @namespace    https://github.com/traschke
+// @updateUrl    https://github.com/traschke/csgostats-rating20-userscpript/raw/main/csgostats-rating20.user.js
+// @downloadURL  https://github.com/traschke/csgostats-rating20-userscpript/raw/main/csgostats-rating20.user.js
+// @supportURL   https://github.com/traschke/csgostats-rating20-userscpript/issues
 // @match        https://csgostats.gg/match/*
 // @grant        none
 // ==/UserScript==
