@@ -8,8 +8,9 @@ This userscript adds HLTV's Rating 2.0 stat to csgostats.gg match scoreboards.
 
 ### Make sure you have user scripts enabled in your browser
 
-   * Firefox - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=firefox)
    * Chrome - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=chrome)
+   * Firefox - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=firefox)
+   * Edge - install [Tampermonkey](https://www.tampermonkey.net/?ext=dhdg&browser=edge)
    * Opera - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=opera)
    * Safari - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=safari)
 
