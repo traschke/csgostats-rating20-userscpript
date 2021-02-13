@@ -1,7 +1,5 @@
 # csgostats.gg Rating 2.0 Userscript
 
-![GitHub all releases](https://img.shields.io/github/downloads/traschke/csgostats-rating20-userscpript/total?style=flat-square)
-
 ![Preview](./img/preview.png)
 
 This userscript adds HLTV's Rating 2.0 stat to csgostats.gg match scoreboards.
@@ -17,7 +15,11 @@ This userscript adds HLTV's Rating 2.0 stat to csgostats.gg match scoreboards.
 
 ### Install the userscript
 
-[![GitHub package.json version](https://img.shields.io/github/package-json/v/traschke/csgostats-rating20-userscpript?label=DOWNLOAD&style=for-the-badge)](https://google.com/)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/traschke/csgostats-rating20-userscpript?label=DOWNLOAD&style=for-the-badge)](https://github.com/traschke/csgostats-rating20-userscpript/blob/main/csgostats-rating20.user.js)
+
+## How does the calculation work
+
+The calculation is based of flashed.gg Dave's reverse engineering of the HLTV 2.0 Rating, see the blog post here: https://flashed.gg/posts/reverse-engineering-hltv-rating/
 
 ## Development
 
