@@ -4,9 +4,9 @@
 // @version      1.0
 // @author       traschke
 // @namespace    https://github.com/traschke
-// @updateUrl    https://github.com/traschke/csgostats-rating20-userscpript/raw/main/csgostats-rating20.user.js
-// @downloadURL  https://github.com/traschke/csgostats-rating20-userscpript/raw/main/csgostats-rating20.user.js
-// @supportURL   https://github.com/traschke/csgostats-rating20-userscpript/issues
+// @updateUrl    https://github.com/traschke/csgostats-rating20-userscript/raw/main/csgostats-rating20.user.js
+// @downloadURL  https://github.com/traschke/csgostats-rating20-userscript/raw/main/csgostats-rating20.user.js
+// @supportURL   https://github.com/traschke/csgostats-rating20-userscript/issues
 // @match        https://csgostats.gg/match/*
 // @grant        none
 // ==/UserScript==
