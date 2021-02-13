@@ -1,0 +1,17 @@
+{
+  "name": "csgostats-rating20-userscpript",
+  "version": "1.0.0",
+  "description": "Add HLTV's Rating 2.0 to csgostats.gg match page scoreboard",
+  "main": "index.js",
+  "repository": "https://github.com/traschke/csgostats-rating20-userscpript",
+  "author": "Timo Raschke",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1"
+  }
+}
