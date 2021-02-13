@@ -1,6 +1,6 @@
 {
   "name": "csgostats-rating20-userscpript",
-  "version": "1.0.0",
+  "version": "1.0",
   "description": "Add HLTV's Rating 2.0 to csgostats.gg match page scoreboard",
   "main": "index.js",
   "repository": "https://github.com/traschke/csgostats-rating20-userscpript",
