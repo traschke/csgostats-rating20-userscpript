@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         csgostats.gg Rating 2.0
 // @description  Add HLTV's Rating 2.0 to csgostats.gg match page scoreboard
-// @version      1.0
+// @version      1.1
 // @author       traschke
 // @namespace    https://github.com/traschke
 // @updateUrl    https://github.com/traschke/csgostats-rating20-userscript/raw/main/csgostats-rating20.user.js
@@ -20,11 +20,19 @@
     deaths: 3,
     assists: 4,
     adr: 7,
-    kast: 33
+    kast: 33,
+    rating20: 35
   }
 
-  const ratingPositiveColor = '#597E35'
-  const ratingNegativeColor = '#AB3D40'
+  const scoreboardNthDict = {
+    t: 1,
+    ct: 3
+  }
+
+  const colorDict = {
+    ratingPositive: '#597E35',
+    ratingNegative: '#AB3D40'
+  }
 
   function calcRating20 (adr, kast, kpr, dpr, impact) {
     // We're using Daves reverse engineered formula: https://flashed.gg/posts/reverse-engineering-hltv-rating/
@@ -36,8 +44,9 @@
   }
 
   function insertRating20ToScoreboard (row, rating20) {
-    const color = ((rating20 >= 1.0) ? ratingPositiveColor : ratingNegativeColor)
-    row.insertAdjacentHTML('beforeend', `<td class="split" style="color: ${color};" align="center">${Math.round(rating20 * 100) / 100}</td>`)
+    const roundedRating20 = Math.round(rating20 * 100) / 100
+    const color = ((roundedRating20 >= 1.0) ? colorDict.ratingPositive : colorDict.ratingNegative)
+    row.insertAdjacentHTML('beforeend', `<td class="split" style="color: ${color};" align="center">${roundedRating20}</td>`)
   }
 
   function insertRating20ScoreboardHeader () {
@@ -87,28 +96,43 @@
     return getRowsTds(row)[tdDict.name].querySelector('a > span').innerText
   }
 
-  function getScoreboardRows () {
-    const scoreboards = document.querySelectorAll('#match-scoreboard > tbody')
-    const tPlayersRows = scoreboards[0].querySelectorAll('tr')
-    const ctPlayersRows = scoreboards[2].querySelectorAll('tr')
+  function getScoreboards () {
+    return document.querySelectorAll(`#match-scoreboard > tbody:nth-of-type(${scoreboardNthDict.t}), #match-scoreboard > tbody:nth-of-type(${scoreboardNthDict.ct})`)
+  }
 
-    return Array.from(tPlayersRows.values()).concat(Array.from(ctPlayersRows.values()))
+  function getPlayerRows (scoreboard) {
+    return scoreboard.querySelectorAll('tr')
+  }
+
+  function sortScoreboard (scoreboard, colId, ascending = false) {
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+      v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx))
+
+    Array.from(getPlayerRows(scoreboard))
+      .sort(comparer(colId, ascending))
+      .forEach(tr => scoreboard.appendChild(tr))
   }
 
   insertRating20ScoreboardHeader()
-  getScoreboardRows().forEach(row => {
-    const rounds = getRoundsFromRow(row)
-    const damage = getDamageFromRow(row)
-    const adr = calcSomethingPerRound(damage, rounds)
-    const kast = getKastFromRow(row)
-    const kills = getKillsFromRow(row)
-    const deaths = getDeathsFromRow(row)
-    const assists = getAssistsFromRow(row)
-    const kpr = calcSomethingPerRound(kills, rounds)
-    const dpr = calcSomethingPerRound(deaths, rounds)
-    const apr = calcSomethingPerRound(assists, rounds)
-    const impact = calcImpact(kpr, apr)
-    const rating20 = calcRating20(adr, kast, kpr, dpr, impact)
-    insertRating20ToScoreboard(row, rating20)
+
+  getScoreboards().forEach(scoreboard => {
+    getPlayerRows(scoreboard).forEach(row => {
+      const rounds = getRoundsFromRow(row)
+      const damage = getDamageFromRow(row)
+      const adr = calcSomethingPerRound(damage, rounds)
+      const kast = getKastFromRow(row)
+      const kills = getKillsFromRow(row)
+      const deaths = getDeathsFromRow(row)
+      const assists = getAssistsFromRow(row)
+      const kpr = calcSomethingPerRound(kills, rounds)
+      const dpr = calcSomethingPerRound(deaths, rounds)
+      const apr = calcSomethingPerRound(assists, rounds)
+      const impact = calcImpact(kpr, apr)
+      const rating20 = calcRating20(adr, kast, kpr, dpr, impact)
+      insertRating20ToScoreboard(row, rating20)
+    })
+    sortScoreboard(scoreboard, tdDict.rating20, false)
   })
 })()
