@@ -1,6 +1,6 @@
 {
   "name": "csgostats-rating20-userscript",
-  "version": "1.1",
+  "version": "1.1.1",
   "description": "Add HLTV's Rating 2.0 to csgostats.gg match page scoreboard",
   "scripts": {
     "lint": "eslint *.js"

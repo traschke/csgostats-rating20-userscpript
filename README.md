@@ -16,7 +16,9 @@ This userscript adds HLTV's Rating 2.0 stat to csgostats.gg match scoreboards.
 
 ### Install the userscript
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/traschke/csgostats-rating20-userscript?label=DOWNLOAD&style=for-the-badge)](https://github.com/traschke/csgostats-rating20-userscript/raw/main/csgostats-rating20.user.js)
+The userscript is hosted on [GreasyFork](https://greasyfork.org/de/scripts/425585-csgostats-gg-rating-2-0).
+
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/traschke/csgostats-rating20-userscript?label=DOWNLOAD&style=for-the-badge)](https://greasyfork.org/en/scripts/425585-csgostats-gg-rating-2-0)
 
 ## How does the calculation work
 
