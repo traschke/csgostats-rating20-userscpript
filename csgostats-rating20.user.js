@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         csgostats.gg Rating 2.0
 // @description  Add HLTV's Rating 2.0 to csgostats.gg match page scoreboard
-// @version      1.1.1
+// @version      1.1.2
 // @author       traschke
 // @namespace    https://github.com/traschke/csgostats-rating20-userscript
 // @supportURL   https://github.com/traschke/csgostats-rating20-userscript/issues
@@ -18,8 +18,8 @@
     deaths: 3,
     assists: 4,
     adr: 7,
-    kast: 33,
-    rating20: 35
+    kast: 9,
+    rating20: 11
   }
 
   const scoreboardNthDict = {
@@ -28,8 +28,9 @@
   }
 
   const colorDict = {
-    ratingPositive: '#597E35',
-    ratingNegative: '#AB3D40'
+    ratingPositive: '#7ED321',
+    ratingAverage: '#D39121',
+    ratingNegative: '#D0021B'
   }
 
   function calcRating20 (adr, kast, kpr, dpr, impact) {
@@ -43,13 +44,15 @@
 
   function insertRating20ToScoreboard (row, rating20) {
     const roundedRating20 = Math.round(rating20 * 100) / 100
-    const color = ((roundedRating20 >= 1.0) ? colorDict.ratingPositive : colorDict.ratingNegative)
-    row.insertAdjacentHTML('beforeend', `<td class="split" style="color: ${color};" align="center">${roundedRating20}</td>`)
+    const color = ((roundedRating20 >= 1.1) ? colorDict.ratingPositive : (roundedRating20 >= 1.0) ? colorDict.ratingAverage : colorDict.ratingNegative)
+    row.insertCell(tdDict.rating20).outerHTML = `<td align="center"><span style="border-radius:4px; padding:2px; display:block; color:#fff; width:43px; text-align:center; background: ${color}">${roundedRating20}</span></td>`
   }
 
   function insertRating20ScoreboardHeader () {
-    const scoreboardHeaderRows = document.querySelectorAll('#match-scoreboard > thead > tr')
-    scoreboardHeaderRows[1].insertAdjacentHTML('beforeend', '<th><span>Rating 2.0</span></th>')
+    const scoreboardHeaderRows = document.querySelectorAll('#match-scoreboard > thead > tr.absolute-spans')
+    scoreboardHeaderRows.forEach(headerRow => {
+      headerRow.insertCell(tdDict.rating20).outerHTML = '<th><span data-toggle="tooltip" title="" data-original-title="HLTV Rating 2.0">Rating 2.0</span></th>'
+    })
   }
 
   function executeAdrRegex (str) {
@@ -99,7 +102,7 @@
   }
 
   function getPlayerRows (scoreboard) {
-    return scoreboard.querySelectorAll('tr')
+    return scoreboard.querySelectorAll('tr:nth-of-type(n+2)')
   }
 
   function sortScoreboard (scoreboard, colId, ascending = false) {
@@ -113,6 +116,8 @@
       .forEach(tr => scoreboard.appendChild(tr))
   }
 
+  // TODO Only do this on old games, because they now calculate Rating 2.0 for newly added games based on the same formula
+  // FIXME Utility header to wide, +1 to prepending colspan
   insertRating20ScoreboardHeader()
 
   getScoreboards().forEach(scoreboard => {
